@@ -1,0 +1,91 @@
+Leetcode Problem 1 Two Sum solutions in C,C++,Python,Java
+
+In C:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
+    int* result = (int*)malloc(2 * sizeof(int));
+
+    for (int i = 0; i < numsSize; ++i) {
+        for (int j = i + 1; j < numsSize; ++j) {
+            if (nums[i] + nums[j] == target) {
+                result[0] = i;
+                result[1] = j;
+                *returnSize = 2;
+                return result;
+            }
+        }
+    }
+
+    *returnSize = 0;
+    return NULL;
+}
+
+In C++:
+
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> numToIndex;
+        vector<int> result;
+
+        for (int i = 0; i < nums.size(); ++i) {
+            int complement = target - nums[i];
+            
+            if (numToIndex.find(complement) != numToIndex.end()) {
+                result.push_back(numToIndex[complement]);
+                result.push_back(i);
+                return result;
+            }
+            
+            numToIndex[nums[i]] = i;
+        }
+        
+        return result;
+    }
+};
+
+
+In Python:
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        num_to_index = {}
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in num_to_index:
+                return [num_to_index[complement], i]
+            num_to_index[num] = i
+        return []
+
+
+In Java:
+
+import java.util.*;
+
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> complementMap = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            
+            if (complementMap.containsKey(complement)) {
+                // If found, return the indices of the two numbers
+                return new int[]{complementMap.get(complement), i};
+            }
+            
+            complementMap.put(nums[i], i);
+        }
+        
+        return new int[]{};
+    }
+}
+
